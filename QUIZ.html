@@ -190,8 +190,7 @@
             else{
               randomQuestions ();
             }
-
-        }
+          }
 
         function nextQuestion(){
           let questionPanel=document.getElementById("questionPanel");
@@ -205,34 +204,197 @@
           let questionText = document.createElement("h3");
           questionText.setAttribute("id", "questionText");
           questionTitle.appendChild(questionText);
-          let randomQuestion=randomQuestions()
-          questionText.innerText=questions[2].question;
-          if (questions[2].type=="boolean"){
+          let randomQuestion=randomQuestions();
+          let theQuestion=questions[randomQuestion];
+          questionText.innerText=theQuestion.question;
+
+//check if the answer is a boolean
+          if (theQuestion.type=="boolean"){
             let answer1 = document.createElement("div");
             answer1.setAttribute("class","answer");
             elementQuestion.appendChild(answer1);
             let trueLabel=document.createElement('label');
+            trueLabel.setAttribute('id', 'trueLabel');
             let answer1Radio = document.createElement('input');
             answer1Radio.setAttribute('type', 'radio');
-            answer1Radio.value="true";
+            answer1Radio.value="True";
             answer1Radio.name="booleanAnswer";
-            trueLabel.appendChild(answer1Radio);
+            answer1Radio.id='answer1Radio';
+            trueLabel.appendChild(answer1Radio); 
             answer1.appendChild(trueLabel);
-            trueLabel.innerHTML+=" true";
+            trueLabel.innerHTML+=" True";
+            answer1.addEventListener("click", function(){
+              if (theQuestion.correct_answer==answer1Radio.value){
+                trueLabel.style.color="green";
+                falseLabel.remove()
+              }
+              else{
+                trueLabel.style.color="red";
+                falseLabel.remove()
+              }
+            }); 
+
             let answer2 = document.createElement("div");
             answer2.setAttribute("class", "answer");
             elementQuestion.appendChild(answer2);
-            
             let falseLabel=document.createElement('label');
+            falseLabel.setAttribute('id', 'falseLabel');
             let answer2Radio = document.createElement('input');
             answer2Radio.setAttribute('type', 'radio');
-            answer2Radio.value="false";
+            answer2Radio.value="False";
             answer2Radio.name="booleanAnswer";
+            answer2Radio.id='answer2Radio';
             falseLabel.appendChild(answer2Radio);
             answer2.appendChild(falseLabel);
-            falseLabel.innerHTML+=" false";
-            answer2.onclick=alert('jesus'); // here is the issue
+            falseLabel.innerHTML+=" False";
+            answer2.addEventListener("click", function(){
+              if (theQuestion.correct_answer==answer2Radio.value){
+                falseLabel.style.color="green";
+                trueLabel.remove()
+              }
+              else{
+                falseLabel.style.color="red";
+                trueLabel.remove()
+              }
+            }); 
           }
+          else{
+            let randomPosition=Math.floor(Math.random()*4);
+            let arrayOfAnswers=Object.assign({},questions)[randomQuestion].incorrect_answers;
+            arrayOfAnswers.splice(randomPosition, 0, theQuestion.correct_answer );
+
+            let answer1 = document.createElement("div");
+            answer1.setAttribute("class","answer");
+            elementQuestion.appendChild(answer1);
+            let label1=document.createElement('label');
+            label1.setAttribute('id', 'label1');
+            let answer1Radio = document.createElement('input');
+            answer1Radio.setAttribute('type', 'radio');
+            answer1Radio.value=arrayOfAnswers[0];
+            answer1Radio.name="multipleAnswer";
+            answer1Radio.id='answer1Radio';
+            label1.appendChild(answer1Radio); 
+            answer1.appendChild(label1);
+            label1.innerHTML+=arrayOfAnswers[0];
+            answer1.addEventListener("click", function(){
+              if (theQuestion.correct_answer==answer1Radio.value){
+                label1.style.color="green";
+                label2.remove()
+                label3.remove()
+                label4.remove()
+              }
+              else{
+                label1.style.color="red";
+                label2.remove()
+                label3.remove()
+                label4.remove()
+                let correctAnswer = document.createElement("p");
+                correctAnswer.innerText=theQuestion.correct_answer
+                elementQuestion.appendChild(correctAnswer);
+              }
+            }); 
+
+
+            let answer2 = document.createElement("div");
+            answer2.setAttribute("class","answer");
+            elementQuestion.appendChild(answer2);
+            let label2=document.createElement('label');
+            label2.setAttribute('id', 'label2');
+            let answer2Radio = document.createElement('input');
+            answer2Radio.setAttribute('type', 'radio');
+            answer2Radio.value=arrayOfAnswers[1];
+            answer2Radio.name="multipleAnswer";
+            answer2Radio.id='answer2Radio';
+            label2.appendChild(answer2Radio); 
+            answer2.appendChild(label2);
+            label2.innerHTML+=arrayOfAnswers[1];
+            answer2.addEventListener("click", function(){
+              if (theQuestion.correct_answer==answer2Radio.value){
+                label2.style.color="green";
+                label1.remove()
+                label3.remove()
+                label4.remove()
+              }
+              else{
+                label2.style.color="red";
+                label1.remove()
+                label3.remove()
+                label4.remove()
+                let correctAnswer = document.createElement("p");
+                correctAnswer.innerText=theQuestion.correct_answer
+                elementQuestion.appendChild(correctAnswer);
+              }
+            }); 
+
+            let answer3 = document.createElement("div");
+            answer3.setAttribute("class","answer");
+            elementQuestion.appendChild(answer3);
+            let label3=document.createElement('label');
+            label3.setAttribute('id', 'label3');
+            let answer3Radio = document.createElement('input');
+            answer3Radio.setAttribute('type', 'radio');
+            answer3Radio.value=arrayOfAnswers[2];
+            answer3Radio.name="multipleAnswer";
+            answer3Radio.id='answer3Radio';
+            label3.appendChild(answer3Radio); 
+            answer3.appendChild(label3);
+            label3.innerHTML+=arrayOfAnswers[2];
+            answer3.addEventListener("click", function(){
+              if (theQuestion.correct_answer==answer3Radio.value){
+                label3.style.color="green";
+                label1.remove()
+                label2.remove()
+                label4.remove()
+              }
+              else{
+                label3.style.color="red";
+                label2.remove()
+                label3.remove()
+                label4.remove()
+                let correctAnswer = document.createElement("p");
+                correctAnswer.innerText=theQuestion.correct_answer
+                elementQuestion.appendChild(correctAnswer);
+              }
+            });
+
+            let answer4 = document.createElement("div");
+            answer4.setAttribute("class","answer");
+            elementQuestion.appendChild(answer4);
+            let label4=document.createElement('label');
+            label4.setAttribute('id', 'label4');
+            let answer4Radio = document.createElement('input');
+            answer4Radio.setAttribute('type', 'radio');
+            answer4Radio.value=arrayOfAnswers[3];
+            answer4Radio.name="multipleAnswer";
+            answer4Radio.id='answer3Radio';
+            label4.appendChild(answer4Radio); 
+            answer4.appendChild(label4);
+            label4.innerHTML+=arrayOfAnswers[3];
+            answer4.addEventListener("click", function(){
+              if (theQuestion.correct_answer==answer4Radio.value){
+                label4.style.color="green";
+                label1.remove()
+                label2.remove()
+                label3.remove()
+              }
+              else{
+                label4.style.color="red";
+                label2.remove()
+                label3.remove()
+                label1.remove()
+                let correctAnswer = document.createElement("p");
+                correctAnswer.innerText=theQuestion.correct_answer
+                elementQuestion.appendChild(correctAnswer);
+              }
+            });
+
+            
+            }
+            let nextQuestionButton = document.createElement('BUTTON');
+            nextQuestionButton.innerText="Next Question";
+            
+            elementQuestion.appendChild(nextQuestionButton);
+            //nextQuestionButton.addEventListener("click", nextQuestion());
         }
     </script>
   </body>
