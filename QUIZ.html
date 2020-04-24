@@ -181,6 +181,7 @@
       ]
       let arrayOfQuestions=[]
       let questionNumber=1000
+      let Points=0
         function  randomQuestions(){
           let rQuestion=Math.floor(Math.random()*questions.length);
             if (!arrayOfQuestions.includes(rQuestion)){
@@ -227,6 +228,7 @@
               if (theQuestion.correct_answer==answer1Radio.value){
                 trueLabel.style.color="green";
                 falseLabel.remove()
+                Points+=1
               }
               else{
                 trueLabel.style.color="red";
@@ -251,6 +253,7 @@
               if (theQuestion.correct_answer==answer2Radio.value){
                 falseLabel.style.color="green";
                 trueLabel.remove()
+                Points+=1
               }
               else{
                 falseLabel.style.color="red";
@@ -282,6 +285,7 @@
                 label2.remove()
                 label3.remove()
                 label4.remove()
+                Points+=1
               }
               else{
                 label1.style.color="red";
@@ -314,6 +318,7 @@
                 label1.remove()
                 label3.remove()
                 label4.remove()
+                Points+=1
               }
               else{
                 label2.style.color="red";
@@ -345,6 +350,7 @@
                 label1.remove()
                 label2.remove()
                 label4.remove()
+                Points+=1
               }
               else{
                 label3.style.color="red";
@@ -376,6 +382,7 @@
                 label1.remove()
                 label2.remove()
                 label3.remove()
+                Points+=1
               }
               else{
                 label4.style.color="red";
@@ -394,7 +401,11 @@
             nextQuestionButton.innerText="Next Question";
             
             questionPanel.appendChild(nextQuestionButton);
-            //nextQuestionButton.addEventListener("click", nextQuestion());
+            nextQuestionButton.addEventListener("click", nextQuestion);
+            let PointsText = document.createElement('p');
+            PointsText.innerText="Points:"+Points;
+            
+            questionPanel.appendChild(PointsText);
         }
     </script>
   </body>
