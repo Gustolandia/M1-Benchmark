@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Quizz night</title> 
+  </head>
+  <body>
+    <h1>Quizz Night</h1>
+    <div id="game">
+      <div id="questionPanel">
+        <div id="start">
+          <input type="button" value="Click here to start quizz" onclick="nextQuestion()"/>
+        </div>
+      </div>
+    </div>
+    <script>
+      const questions = [
+        {
+          category: 'Science: Computers',
+          type: 'multiple',
+          difficulty: 'easy',
+          question: 'What does CPU stand for?',
+          correct_answer: 'Central Processing Unit',
+          incorrect_answers: ['Central Process Unit', 'Computer Personal Unit', 'Central Processor Unit'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'multiple',
+          difficulty: 'easy',
+          question:
+            "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn't get modified?",
+          correct_answer: 'Final',
+          incorrect_answers: ['Static', 'Private', 'Public'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'boolean',
+          difficulty: 'easy',
+          question: 'The logo for Snapchat is a Bell.',
+          correct_answer: 'False',
+          incorrect_answers: ['True'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'boolean',
+          difficulty: 'easy',
+          question: 'Pointers were not used in the original C programming language; they were added later on in C++.',
+          correct_answer: 'False',
+          incorrect_answers: ['True'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'multiple',
+          difficulty: 'easy',
+          question: 'What is the most preferred image format used for logos in the Wikimedia database?',
+          correct_answer: '.svg',
+          incorrect_answers: ['.png', '.jpeg', '.gif'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'multiple',
+          difficulty: 'easy',
+          question: 'In web design, what does CSS stand for?',
+          correct_answer: 'Cascading Style Sheet',
+          incorrect_answers: ['Counter Strike: Source', 'Corrective Style Sheet', 'Computer Style Sheet'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'multiple',
+          difficulty: 'easy',
+          question: 'What is the code name for the mobile operating system Android 7.0?',
+          correct_answer: 'Nougat',
+          incorrect_answers: ['Ice Cream Sandwich', 'Jelly Bean', 'Marshmallow'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'multiple',
+          difficulty: 'easy',
+          question: 'On Twitter, what is the character limit for a Tweet?',
+          correct_answer: '140',
+          incorrect_answers: ['120', '160', '100'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'boolean',
+          difficulty: 'easy',
+          question: 'Linux was first created as an alternative to Windows XP.',
+          correct_answer: 'False',
+          incorrect_answers: ['True'],
+        },
+        {
+          category: 'Science: Computers',
+          type: 'multiple',
+          difficulty: 'easy',
+          question: 'Which programming language shares its name with an island in Indonesia?',
+          correct_answer: 'Java',
+          incorrect_answers: ['Python', 'C', 'Jakarta'],
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"Which company was established on April 1st, 1976 by Steve Jobs, Steve Wozniak and Ronald Wayne?",
+          correct_answer:"Apple",
+          incorrect_answers:["Microsoft","Atari","Commodore"]
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"When Gmail first launched, how much storage did it provide for your email?",
+          correct_answer:"1GB",
+          incorrect_answers:["512MB","5GB","Unlimited"]
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"HTML is what type of language?",
+          correct_answer:"Markup Language",
+          incorrect_answers:["Macro Language","Programming Language","Scripting Language"]
+        },
+        {
+          category:"Science: Computers",
+          type:"boolean",
+          difficulty:"easy",
+          question:"&quot;HTML&quot; stands for Hypertext Markup Language.",
+          correct_answer:"True",
+          incorrect_answers:["False"]
+        },
+        {
+          category:"Science: Computers",
+          type:"boolean",
+          difficulty:"easy",
+          question:"In most programming languages, the operator ++ is equivalent to the statement &quot;+= 1&quot;.",
+          correct_answer:"True",
+          incorrect_answers:["False"]
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"The numbering system with a radix of 16 is more commonly referred to as ",
+          correct_answer:"Hexidecimal",
+          incorrect_answers:["Binary","Duodecimal","Octal"]
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"This mobile OS held the largest market share in 2012.",
+          correct_answer:"iOS",
+          incorrect_answers:["Android","BlackBerry","Symbian"]
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"Which programming language shares its name with an island in Indonesia?",
+          correct_answer:"Java",
+          incorrect_answers:["Python","C","Jakarta"]
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"How long is an IPv6 address?",
+          correct_answer:"128 bits",
+          incorrect_answers:["32 bits","64 bits","128 bytes"]
+        },
+        {
+          category:"Science: Computers",
+          type:"multiple",
+          difficulty:"easy",
+          question:"What does the computer software acronym JVM stand for?",
+          correct_answer:"Java Virtual Machine",
+          incorrect_answers:["Java Vendor Machine","Java Visual Machine","Just Virtual Machine"]
+        }
+      ]
+      let arrayOfQuestions=[]
+      let questionNumber=1000
+        function  randomQuestions(){
+          let rQuestion=Math.floor(Math.random()*questions.length);
+            if (!arrayOfQuestions.includes(rQuestion)){
+              arrayOfQuestions.push(rQuestion);
+              return rQuestion
+            }
+            else{
+              randomQuestions ();
+            }
+
+        }
+
+        function nextQuestion(){
+          let questionPanel=document.getElementById("questionPanel");
+          questionPanel.textContent='';
+          let elementQuestion = document.createElement("div");
+          elementQuestion.setAttribute("id", "elementQuestion");
+          questionPanel.appendChild(elementQuestion);
+          let questionTitle = document.createElement("div");
+          questionTitle.setAttribute("id", "questionTitle");
+          elementQuestion.appendChild(questionTitle);
+          let questionText = document.createElement("h3");
+          questionText.setAttribute("id", "questionText");
+          questionTitle.appendChild(questionText);
+          let randomQuestion=randomQuestions()
+          questionText.innerText=questions[2].question;
+          if (questions[2].type=="boolean"){
+            let answer1 = document.createElement("div");
+            answer1.setAttribute("class","answer");
+            elementQuestion.appendChild(answer1);
+            let trueLabel=document.createElement('label');
+            let answer1Radio = document.createElement('input');
+            answer1Radio.setAttribute('type', 'radio');
+            answer1Radio.value="true";
+            answer1Radio.name="booleanAnswer";
+            trueLabel.appendChild(answer1Radio);
+            answer1.appendChild(trueLabel);
+            trueLabel.innerHTML+=" true";
+            let answer2 = document.createElement("div");
+            answer2.setAttribute("class", "answer");
+            elementQuestion.appendChild(answer2);
+            
+            let falseLabel=document.createElement('label');
+            let answer2Radio = document.createElement('input');
+            answer2Radio.setAttribute('type', 'radio');
+            answer2Radio.value="false";
+            answer2Radio.name="booleanAnswer";
+            falseLabel.appendChild(answer2Radio);
+            answer2.appendChild(falseLabel);
+            falseLabel.innerHTML+=" false";
+            answer2.onclick=alert('jesus'); // here is the issue
+          }
+        }
+    </script>
+  </body>
+</html>
